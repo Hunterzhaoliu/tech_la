@@ -1,0 +1,16 @@
+.img-close-button {
+  width: 16px;
+}
+
+.button-close {
+  line-height: 1;
+  padding: 0px;
+  box-shadow: none;
+  background-color: transparent;
+  border: none;
+}
+
+.button-register {
+  background-color: transparent;
+  border-color: transparent;
+}

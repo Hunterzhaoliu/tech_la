@@ -1,0 +1,10 @@
+.p-error-message {
+  line-height: 1;
+  font-family: inherit;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+
+.row-error-message-padding {
+  padding-top: 15px;
+}
