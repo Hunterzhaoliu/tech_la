@@ -1,0 +1,5 @@
+.content-overlay {
+  z-index: 3; /* z-index of customHeader is 2 */
+  background-color: white;
+  padding: 32px;
+}
