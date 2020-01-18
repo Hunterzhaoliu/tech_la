@@ -49,15 +49,6 @@ export const initializeApp = () => async dispatch => {
     mongoDBUserId: userResponseId,
     isGoogleOauth: isGoogleOauth
   });
-
-  const currentURL = window.location.href;
-
-  if (userResponseId !== undefined) {
-    dispatch({
-      type: FILL_PROFILE,
-      profile: userResponse.data.profile
-    });
-  }
 };
 
 export const switchPopUpVisibility = popUpName => dispatch => {
@@ -94,12 +85,8 @@ const localLoginUser = async (email, password, dispatch) => {
       popUpName: "login"
     });
 
-    if (user.profile.profileIsFilled === false) {
-      // user needs to fill out profile
-      history.push("/profile");
-    } else {
-      history.push("/menu");
-    }
+    // push to profile page
+    history.push("/profile");
   } else {
     dispatch({
       type: SAVE_LOGIN_ERRORS,
@@ -149,6 +136,9 @@ export const registerUser = newUser => async dispatch => {
 
     // also login user after registering them
     await localLoginUser(newUser.email, newUser.password, dispatch);
+
+    // push to profile page
+    history.push("/profile");
   } else {
     // user sign up has errors
     dispatch({

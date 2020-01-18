@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Layout, Row, Col, Icon } from "antd";
 import "./custom-header.css";
 import logo from "../../images/logo.png";
-import { GREY_8 } from "../../styles/ColorConstants";
+import { GREY_1 } from "../../styles/ColorConstants";
 const { Header } = Layout;
 
 class CustomHeader extends Component {
@@ -39,16 +39,14 @@ class CustomHeader extends Component {
           align="middle"
         >
           <Col>
-            <div style={{ width: "44px" }} />
-          </Col>
-          <Col>
             <a className="a-logo" href="/">
-              <img alt="" style={{ width: "100px" }} src={logo} />
+              <img alt="" src={logo} />
             </a>
           </Col>
           <Col>
             <button
-              style={{ background: "red", color: GREY_8 }}
+              className="button-menu-buttons"
+              style={{ color: GREY_1 }}
               onClick={e => this.props.switchPopUpVisibility("menuButtons")}
             >
               <Icon type="menu" />
@@ -65,17 +63,9 @@ class CustomHeader extends Component {
           align="middle"
         >
           <Col>
-            <a style={{ background: "red", color: GREY_8 }} href="/">
-              <Icon type="left" />
-            </a>
-          </Col>
-          <Col>
             <a className="a-logo" href="/">
-              <img alt="" style={{ width: "100px" }} src={logo} />
+              <img alt="" src={logo} />
             </a>
-          </Col>
-          <Col>
-            <div style={{ width: "44px" }} />
           </Col>
         </Row>
       );
@@ -86,13 +76,13 @@ class CustomHeader extends Component {
     return (
       <Header
         style={{
-          background: "red",
+          background: "black",
           position: "fixed",
-          zIndex: 2, // make every component display under the header
+          zIndex: 2,
           width: "100%",
           height: "60px",
           lineHeight: "60px",
-          padding: "0px 15px"
+          padding: "0px 0px"
         }}
       >
         {this.renderHeaderButtons()}

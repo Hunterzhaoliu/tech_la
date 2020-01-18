@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import * as profileActionCreators from "../actions/profile";
@@ -7,10 +6,25 @@ import { Layout, Row, Col, Icon, Divider } from "antd";
 import InputField from "./input/InputField";
 import InputChoice from "./input/InputChoice";
 
-import { GREY_0, GREY_5, GREY_6, GREY_8 } from "../styles/ColorConstants";
+import { GREY_0, GREY_5, GREY_8 } from "../styles/ColorConstants";
 import "./profile.css";
 
 const { Content } = Layout;
+
+const genderOptions = [
+  {
+    label: "Male",
+    value: "Male"
+  },
+  {
+    label: "Female",
+    value: "Female"
+  },
+  {
+    label: "Other",
+    value: "Other"
+  }
+];
 
 class Profile extends Component {
   constructor() {
@@ -24,7 +38,19 @@ class Profile extends Component {
     };
   }
 
+  componentDidMount() {
+    // when a user immedietely logs in, the history.push does not cause the page
+    // to rerender, so the mongoDBUserId is still in the state
+    this.props.onProfile(this.props.auth.mongoDBUserId);
+  }
+
   componentDidUpdate(previousProps) {
+    if (this.props.auth.mongoDBUserId !== previousProps.auth.mongoDBUserId) {
+      // once the user's mongoDBUserId is retrieved from the database, fetch
+      // the user's profile
+      this.props.onProfile(this.props.auth.mongoDBUserId);
+    }
+
     if (this.props.profile !== previousProps.profile) {
       // once the user's profile is retrieved from the database, set the local
       // state
@@ -56,11 +82,9 @@ class Profile extends Component {
   renderProfileDescription(profile) {
     return (
       <h2
+        className="h2-account"
         style={{
-          padding: "12px 0px 0px 0px",
-          color: GREY_8,
-          lineHeight: 1,
-          fontFamily: "Aharoni Bold"
+          color: GREY_8
         }}
       >
         Account
@@ -80,7 +104,6 @@ class Profile extends Component {
 
   renderInput() {
     const errors = this.state.errors;
-    const { windowWidth } = this.props;
 
     return (
       <div>
@@ -91,7 +114,7 @@ class Profile extends Component {
               placeholder="First Name"
               onChange={this.onChange}
               hasError={false}
-              width={windowWidth - 64}
+              width={"350px"}
               id="firstName"
               type="string"
             />
@@ -104,7 +127,7 @@ class Profile extends Component {
               placeholder="Last Name"
               onChange={this.onChange}
               hasError={false}
-              width={windowWidth - 64}
+              width={"350px"}
               id="lastName"
               type="string"
             />
@@ -118,7 +141,7 @@ class Profile extends Component {
               errorMessage="Age should be between 13 and 100."
               hasError={errors.ageError}
               onChange={this.onChange}
-              width={windowWidth - 64}
+              width={"350px"}
               id="age"
               type="number"
             />
@@ -128,7 +151,7 @@ class Profile extends Component {
           <Col>
             <InputChoice
               title=""
-              options={options.gender}
+              options={genderOptions}
               value={this.state.gender}
               onChange={this.onChangeGender}
             />
@@ -151,25 +174,29 @@ class Profile extends Component {
           padding: "60px 0px 0px 0px"
         }}
       >
-        {this.renderProfileDescription(profile)}
-        <Divider style={{ color: GREY_5 }}>Profile</Divider>
-        <Row style={{ paddingBottom: 10 }} type="flex" justify="center">
-          <Col span={22}>
-            {this.renderInput()}
-            <Row style={{ paddingTop: 30 }} type="flex" justify="center">
-              <Col>
-                <button
-                  className="button-profile-save"
-                  onClick={
-                    () =>
-                      this.props.saveProfile(
-                        auth.mongoDBUserId,
-                        JSON.parse(JSON.stringify(this.state))
-                      ) // need to send copy of state
-                  }
-                >
-                  Save {this.renderSaveIcon(profile.saveState)}
-                </button>
+        <Row style={{ paddingTop: "60px" }} type="flex" justify="center">
+          <Col>
+            {this.renderProfileDescription(profile)}
+            <Divider style={{ color: GREY_5 }}>Profile</Divider>
+            <Row style={{ paddingBottom: 10 }} type="flex" justify="center">
+              <Col span={22}>
+                {this.renderInput()}
+                <Row style={{ paddingTop: 30 }} type="flex" justify="center">
+                  <Col>
+                    <button
+                      className="button-profile-save"
+                      onClick={
+                        () =>
+                          this.props.saveProfile(
+                            auth.mongoDBUserId,
+                            JSON.parse(JSON.stringify(this.state))
+                          ) // need to send copy of state
+                      }
+                    >
+                      Save {this.renderSaveIcon(profile.saveState)}
+                    </button>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Col>
@@ -194,6 +221,9 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
+    onProfile: mongoDBUserId => {
+      profileDispatchers.onProfile(mongoDBUserId);
+    },
     saveProfile: (mongoDBUserId, profile) => {
       profileDispatchers.saveProfile(mongoDBUserId, profile);
     }

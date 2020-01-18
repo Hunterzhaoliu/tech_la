@@ -14,7 +14,6 @@ class Register extends Component {
   constructor() {
     super();
     this.state = {
-      name: "",
       email: "",
       password: "",
       confirmedPassword: "",
@@ -37,9 +36,7 @@ class Register extends Component {
   onSubmit = e => {
     // stops the page from reloading when the submit button is clicked
     e.preventDefault();
-
     const newUser = {
-      name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       confirmedPassword: this.state.confirmedPassword
@@ -49,116 +46,105 @@ class Register extends Component {
   };
 
   render() {
-    const { windowWidth } = this.props;
     const { errors } = this.state;
 
     return (
-      <Content
-        style={{
-          height: "100vh"
-        }}
-        className="content-overlay"
-      >
-        {" "}
-        <Row style={{ paddingBottom: 15 }} type="flex" justify="start">
+      <Content className="content-overlay">
+        <Row type="flex" justify="center">
           <Col>
-            <button
-              className="button-close"
-              onClick={e => this.props.switchPopUpVisibility("register")}
-            >
-              <img className="img-close-button" src={close} alt="" />
-            </button>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <form onSubmit={this.onSubmit}>
-              <Row type="flex" justify="center">
-                <Col>
-                  <InputField
-                    value={this.state.name}
-                    placeholder="name"
-                    errorMessage={errors.name}
-                    hasError={errors.name}
-                    onChange={this.onChange}
-                    width={windowWidth - 64}
-                    id="name"
-                    type="text"
-                  />
-                </Col>
-              </Row>
-              <Row style={{ paddingTop: 15 }} type="flex" justify="center">
-                <Col>
-                  <InputField
-                    value={this.state.email}
-                    placeholder="e-mail"
-                    errorMessage={errors.email}
-                    hasError={errors.email}
-                    onChange={this.onChange}
-                    width={windowWidth - 64}
-                    id="email"
-                    type="email"
-                  />
-                </Col>
-              </Row>
-              <Row style={{ paddingTop: 15 }} type="flex" justify="center">
-                <Col>
-                  <InputField
-                    value={this.state.password}
-                    placeholder="password"
-                    errorMessage={errors.password}
-                    hasError={errors.password}
-                    onChange={this.onChange}
-                    width={windowWidth - 64}
-                    id="password"
-                    type="password"
-                  />
-                </Col>
-              </Row>
-              <Row style={{ paddingTop: 15 }} type="flex" justify="center">
-                <Col>
-                  <InputField
-                    value={this.state.confirmedPassword}
-                    placeholder="confirm password"
-                    errorMessage={errors.confirmedPassword}
-                    hasError={errors.confirmedPassword}
-                    onChange={this.onChange}
-                    width={windowWidth - 64}
-                    id="confirmedPassword"
-                    type="password"
-                  />
-                </Col>
-              </Row>
-              <Row style={{ paddingTop: 30, color: GREY_8, fontSize: "20px" }}>
-                <Col>
-                  <button className="button-register" type="submit">
-                    Sign up
-                  </button>
-                </Col>
-              </Row>
-            </form>
-          </Col>
-        </Row>
-        <Divider style={{ color: GREY_5 }}>or</Divider>
-        <Row type="flex" justify="start">
-          <Col>
-            <a
-              style={{ color: GREY_5 }}
-              className="a-google-oauth"
-              href="/auth/google"
-              onClick={e => this.props.switchPopUpVisibility("register")}
-            >
-              <Row type="flex" justify="space-between">
-                <Col>
-                  <Icon style={{ color: GREY_8 }} type="google" />
-                </Col>
-                <Col
-                  style={{ paddingLeft: 8, color: GREY_8, fontSize: "20px" }}
+            <Row style={{ paddingBottom: 15 }} type="flex" justify="start">
+              <Col>
+                <button
+                  className="button-close"
+                  onClick={e => this.props.switchPopUpVisibility("register")}
                 >
-                  <div>Sign up with Google</div>
-                </Col>
-              </Row>
-            </a>
+                  <img className="img-close-button" src={close} alt="" />
+                </button>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <form onSubmit={this.onSubmit}>
+                  <Row style={{ paddingTop: 15 }} type="flex" justify="start">
+                    <Col>
+                      <InputField
+                        value={this.state.email}
+                        placeholder="e-mail"
+                        errorMessage={errors.email}
+                        hasError={errors.email}
+                        onChange={this.onChange}
+                        width={"350px"}
+                        id="email"
+                        type="email"
+                      />
+                    </Col>
+                  </Row>
+                  <Row style={{ paddingTop: 15 }} type="flex" justify="start">
+                    <Col>
+                      <InputField
+                        value={this.state.password}
+                        placeholder="password"
+                        errorMessage={errors.password}
+                        hasError={errors.password}
+                        onChange={this.onChange}
+                        width={"350px"}
+                        id="password"
+                        type="password"
+                      />
+                    </Col>
+                  </Row>
+                  <Row style={{ paddingTop: 15 }} type="flex" justify="start">
+                    <Col>
+                      <InputField
+                        value={this.state.confirmedPassword}
+                        placeholder="confirm password"
+                        errorMessage={errors.confirmedPassword}
+                        hasError={errors.confirmedPassword}
+                        onChange={this.onChange}
+                        width={"350px"}
+                        id="confirmedPassword"
+                        type="password"
+                      />
+                    </Col>
+                  </Row>
+                  <Row
+                    style={{ paddingTop: 30, color: GREY_8, fontSize: "20px" }}
+                  >
+                    <Col>
+                      <button className="button-register" type="submit">
+                        Sign up
+                      </button>
+                    </Col>
+                  </Row>
+                </form>
+              </Col>
+            </Row>
+            <Divider style={{ color: GREY_5 }}>or</Divider>
+            <Row type="flex" justify="start">
+              <Col>
+                <a
+                  style={{ color: GREY_5 }}
+                  className="a-google-oauth"
+                  href="/auth/google"
+                  onClick={e => this.props.switchPopUpVisibility("register")}
+                >
+                  <Row type="flex" justify="space-between">
+                    <Col>
+                      <Icon style={{ color: GREY_8 }} type="google" />
+                    </Col>
+                    <Col
+                      style={{
+                        paddingLeft: 8,
+                        color: GREY_8,
+                        fontSize: "16px"
+                      }}
+                    >
+                      <div>Sign up with Google</div>
+                    </Col>
+                  </Row>
+                </a>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Content>
@@ -167,7 +153,6 @@ class Register extends Component {
 }
 
 const mapStateToProps = state => ({
-  windowWidth: state.customHeader.windowWidth,
   auth: state.auth
 });
 

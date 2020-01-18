@@ -5,23 +5,23 @@ import * as authActionCreators from "../actions/auth";
 import { Layout, Row, Col } from "antd";
 import "./landing.css";
 
-import { GREY_0, GREY_5, GREY_8 } from "../styles/ColorConstants";
+import { GREY_0, GREY_8 } from "../styles/ColorConstants";
 
 const { Content } = Layout;
 
 class Landing extends Component {
-  displaySignUp() {
+  displayAuthentication() {
     const { auth } = this.props;
     if (auth.isAuthenticated) {
-      return <h2>You're Logged In!</h2>;
+      return <h3 className="h3-logged-in">You're Logged In!</h3>;
     } else {
       return (
         <div>
           <Row type="flex" justify="center" align="middle">
             <Col
-              span={20}
+              span={10}
               style={{
-                padding: "12px 0px 0px 0px" // TRBL
+                paddingTop: "60px"
               }}
             >
               <button
@@ -37,12 +37,12 @@ class Landing extends Component {
             </Col>
           </Row>
           <Row type="flex" justify="center" align="middle">
-            <Col span={20}>
+            <Col span={10}>
               <Row
                 type="flex"
                 justify="center"
                 align="middle"
-                style={{ paddingTop: 12 }}
+                style={{ paddingTop: 30 }}
               >
                 <Col>
                   <h5
@@ -50,10 +50,10 @@ class Landing extends Component {
                       color: GREY_8
                     }}
                   >
-                    Already a member?
+                    Already registered?
                   </h5>
                 </Col>
-                <Col offset={1}>
+                <Col offset={4}>
                   <button
                     style={{
                       color: GREY_0,
@@ -73,18 +73,40 @@ class Landing extends Component {
   }
 
   render() {
-    const { windowWidth } = this.props;
-    // display how site works infographic
     return (
       <Content
         style={{
           backgroundColor: GREY_0,
           textAlign: "center",
-          padding: "0px 0px 0px 0px" // TRBL
+          padding: "60px 0px 0px 0px"
         }}
       >
+        <Row
+          style={{
+            paddingTop: "120px"
+          }}
+          type="flex"
+          justify="center"
+          align="middle"
+        >
+          <Col span={12}>
+            <h1>tech.LA Engineering Challenge</h1>
+          </Col>
+        </Row>
+        <Row
+          style={{
+            paddingTop: "60px"
+          }}
+          type="flex"
+          justify="center"
+          align="middle"
+        >
+          <Col span={12}>
+            <h3>User Registration Flow</h3>
+          </Col>
+        </Row>
         <Row type="flex" justify="center" align="middle">
-          <Col span={23}>{this.displaySignUp()}</Col>
+          <Col span={12}>{this.displayAuthentication()}</Col>
         </Row>
       </Content>
     );

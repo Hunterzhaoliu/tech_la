@@ -16,8 +16,6 @@ const store = createStore(
   composeEnhancers(applyMiddleware(reduxThunk))
 );
 
-let persistor = persistStore(store);
-
 ReactDOM.render(
   <Provider store={store}>
     <App />

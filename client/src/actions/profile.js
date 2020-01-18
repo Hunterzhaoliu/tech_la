@@ -1,10 +1,27 @@
 import axios from "axios";
 import {
+  FILL_PROFILE,
+  FILL_PROFILE_ERROR,
   SAVE_PROFILE_START,
   SUCCESSFULLY_SAVED_PROFILE,
   PROFILE_SAVE_ERROR
 } from "./types";
-import history from "../containers/history";
+
+export const onProfile = mongoDBUserId => async dispatch => {
+  // fetch user profile
+  const userProfileResponse = await axios.get(
+    "/api/user?mongoDBUserId=" + mongoDBUserId
+  );
+
+  if (userProfileResponse.status === 200) {
+    dispatch({
+      type: FILL_PROFILE,
+      userProfile: userProfileResponse.data.profile
+    });
+  } else {
+    dispatch({ type: FILL_PROFILE_ERROR });
+  }
+};
 
 export const saveProfile = (mongoDBUserId, profile) => async dispatch => {
   dispatch({

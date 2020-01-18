@@ -50,12 +50,7 @@ class HeaderMenuButtons extends Component {
   render() {
     const aWidth = "240px";
     return (
-      <Content
-        style={{
-          height: "100vh"
-        }}
-        className="content-overlay"
-      >
+      <Content className="content-overlay">
         <Row style={{ paddingBottom: 30 }} type="flex" justify="start">
           <Col>
             <a
@@ -77,7 +72,7 @@ class HeaderMenuButtons extends Component {
               onClick={e => this.props.switchPopUpVisibility("menuButtons")}
               href="/profile"
             >
-              My Profile
+              Account
             </a>
           </Col>
         </Row>

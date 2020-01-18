@@ -1,13 +1,13 @@
 .img-close-button {
-  width: 16px;
+  width: 20px;
 }
 
 .button-close {
-  line-height: 1;
-  padding: 0px;
   box-shadow: none;
   background-color: transparent;
   border: none;
+  padding: 10px;
+  margin-left: -10px;
 }
 
 .button-register {

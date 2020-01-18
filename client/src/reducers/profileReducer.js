@@ -26,7 +26,10 @@ export default function(state = initialState, action) {
   let newState = cloneObject(state);
   switch (action.type) {
     case FILL_PROFILE:
-      newState.values = action.profile;
+      if (action.userProfile !== undefined) {
+        // user has profile atleast partially filled
+        newState.values = action.userProfile;
+      }
       return newState;
     case SAVE_PROFILE_START:
       newState.saveState = "start";
