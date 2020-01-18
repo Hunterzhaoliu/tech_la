@@ -108,7 +108,6 @@ module.exports = app => {
         return response.json({ email: "Email already exists." });
       } else {
         const newUser = new UserCollection({
-          name: request.body.name,
           email: lowerCaseEmail,
           password: request.body.password
         });
@@ -139,14 +138,8 @@ module.exports = app => {
     "/auth/google/callback",
     passport.authenticate("google"),
     (request, response) => {
-      // after a user is logged in show them...
-      const user = request.user;
-      if (user.profile.profileIsFilled === false) {
-        // user needs to fill out profile
-        response.redirect("/profile");
-      } else {
-        response.redirect("/menu");
-      }
+      // after a user is logged in show them the profile page
+      response.redirect("/profile");
     }
   );
 
