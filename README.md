@@ -12,6 +12,13 @@ Engineering Challenge | User Registration Flow
 6. e-mail hzl@seas.upenn.edu for development keys file `dev.js`
 7. `npm run dev`
 
+### Deployment checklist
+
+1.  `git checkout master`
+2.  Push to Github: `git push origin master`
+3.  Push to Heroku: `git push heroku master`
+4.  Check deployment at https://techdotla.herokuapp.com/
+
 ### Google OAuth 2
 
 1. console.developers.google.com

@@ -6,6 +6,7 @@ import {
   SUCCESSFULLY_SAVED_PROFILE,
   PROFILE_SAVE_ERROR
 } from "./types";
+import { isValidNumber } from "../utils/validateInputs";
 
 export const onProfile = mongoDBUserId => async dispatch => {
   // fetch user profile
@@ -33,11 +34,12 @@ export const saveProfile = (mongoDBUserId, profile) => async dispatch => {
   let profileErrors = profile.errors;
   delete profile.errors;
 
+  const userAge = profile.age;
   // check for specific errors
   // check for age input errors
-  if (profile.age === undefined) {
+  if (userAge === null || userAge === "") {
     profileErrors.ageError = false;
-  } else if (profile.age < 13 || profile.age > 100) {
+  } else if (userAge < 13 || userAge > 100 || !isValidNumber(userAge)) {
     // input age has an error, don't want to save in database
     delete profile.age;
     profileErrors.ageError = true;
