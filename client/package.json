@@ -21,7 +21,7 @@
     "axios": "^0.18.1",
     "babel-plugin-import": "^1.6.3",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "^16.2.0",
     "react-app-rewired": "^1.4.0",
     "react-dom": "^16.2.0",
